@@ -18,6 +18,7 @@ def session_token_required(func):
                 api_key=apps.get_app_config("shopify_app").SHOPIFY_API_KEY,
                 secret=apps.get_app_config("shopify_app").SHOPIFY_API_SECRET,
             )
+            print(decoded_session_token)
             with shopify_session(decoded_session_token):
                 return func(*args, **kwargs)
         except session_token.SessionTokenError:
@@ -27,7 +28,7 @@ def session_token_required(func):
 
 
 def shopify_session(session_token):
-    shopify_domain = session_token.get("dest").removeprefix("https://")
+    shopify_domain = session_token.get("dest").lstrip("https://")
     api_version = apps.get_app_config("shopify_app").SHOPIFY_API_VERSION
     access_token = Shop.objects.get(shopify_domain=shopify_domain).shopify_token
 

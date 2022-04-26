@@ -7,10 +7,11 @@ from shopify_app.decorators import known_shop_required, latest_access_scopes_req
 
 
 class HomeView(View):
+    print("b-1")
     @xframe_options_exempt
     @known_shop_required
     @latest_access_scopes_required
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):        
         context = {
             "shop_origin": kwargs.get("shopify_domain"),
             "api_key": apps.get_app_config("shopify_app").SHOPIFY_API_KEY,
