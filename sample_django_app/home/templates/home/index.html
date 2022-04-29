@@ -6,9 +6,11 @@
 
 {%block title%}Import View{%endblock title%}
 
-<a href="/api_view/?shop={{ shop_origin }}">API VIEW</a>
+
 
 {%block content%}
+<a class="d-block mb-3 mt-3" href="/api_view/?shop={{ shop_origin }}">API View</a>
+
 <h2 class="display-3 mb-2">CSVファイル列名の設定</h2>
 
 {{ form.non_field_errors }}
