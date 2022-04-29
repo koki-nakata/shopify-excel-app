@@ -1,0 +1,26 @@
+.polaris-caption {
+  display: block;
+  margin: 0.4rem 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: color(ink, lighter);
+  line-height: 2rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.polaris-caption--error {
+    color: color(red, dark);
+  }
+
+  &.polaris-caption--indent {
+    margin: 0 0 0.4rem;
+    padding-left: 2.4rem;
+  }
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+  }
+}

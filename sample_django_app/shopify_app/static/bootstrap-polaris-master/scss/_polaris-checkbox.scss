@@ -1,0 +1,78 @@
+$check-svg: "%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill-rule='evenodd' fill='%235c6ac4'%3E%3Cpath d='M8.315 13.859l-3.182-3.417a.506.506 0 0 1 0-.684l.643-.683a.437.437 0 0 1 .642 0l2.22 2.393 4.942-5.327a.437.437 0 0 1 .643 0l.643.684a.504.504 0 0 1 0 .683l-5.91 6.35a.437.437 0 0 1-.642 0'%3E%3C/path%3E%3Cpath d='M8.315 13.859l-3.182-3.417a.506.506 0 0 1 0-.684l.643-.683a.437.437 0 0 1 .642 0l2.22 2.393 4.942-5.327a.437.437 0 0 1 .643 0l.643.684a.504.504 0 0 1 0 .683l-5.91 6.35a.437.437 0 0 1-.642 0'%3E%3C/path%3E%3C/g%3E%3C/svg%3E";
+
+.polaris-check {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0.4rem 0;
+
+  html:not(.no-svg):not(.ie9) & {
+    > input[type="checkbox"] {
+      // appearance: none;
+      position: absolute;
+      top: 0;
+      clip: rect(1px,1px,1px,1px);
+      overflow: hidden;
+      height: 1px;
+      width: 1px;
+      padding: 0;
+      border: 0;
+
+      &:disabled {
+        + span {
+          pointer-events: none;
+          opacity: 0.5;
+        }
+      }
+    }
+  
+    > span {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      transition: opacity 0.2s;
+  
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 0.8rem;
+        background-color: $white;
+        background-image: url("data:image/svg+xml;charset=utf8,#{$check-svg}"), linear-gradient(180deg,$white,$gray-100);
+        background-repeat: no-repeat, no-repeat;
+        background-position: center, center;
+        background-size: 0.5px 0.5px, 100%;
+        border-radius: 2px;
+        border: 1px solid $gray-400;
+        box-shadow: 0 0 0 1px transparent, 0 1px 0 0 rgba(22,29,37,.05);
+        border-radius: 3px;
+        transition: box-shadow .2s cubic-bezier(.64,0,.35,1), background-size .1s cubic-bezier(.36,0,1,1);
+      }
+    }
+  
+    > input[type="checkbox"]:checked + span {
+      &:before {
+        background-size: 2rem 2rem, 100%;
+        border-color: $indigo;
+      }
+    }
+  
+    > input[type="checkbox"]:focus + span,
+    > input[type="checkbox"]:active + span {
+      &:before {
+        border-color: $indigo;
+        box-shadow: 0 0 0 1px $indigo, 0 0 0 0 transparent;
+      }
+    }
+
+    > input[type="checkbox"]:focus:disabled + span,
+    > input[type="checkbox"]:active:disabled + span {
+      &:before {
+        border-color: $gray-400;
+        box-shadow: 0 0 0 1px transparent, 0 1px 0 0 rgba(22,29,37,.05);
+      }
+    }
+  }
+}

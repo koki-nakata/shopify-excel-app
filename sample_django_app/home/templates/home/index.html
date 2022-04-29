@@ -1,66 +1,50 @@
 {% extends 'home/base.html' %}
 
-  {%block script%}
-  <script>
-    function getProducts() {
-      shopifyAuthenticatedFetch('/api/products').then(async (res) => {
-        var products = (await res.json())['products'];
-        var productListElement = window.document.querySelector('#product-list');
+{%block script%}
 
-        for (var i = 0, len = products.length; i < len; i++) {
-          var newLi = document.createElement('li');
-          newLi.textContent = products[i]['title']
-          productListElement.appendChild(newLi);
-        }
-      });
-    }
-    function getOrders() {
-      shopifyAuthenticatedFetch('/api/orders').then(async (res) => {
-        var orders = (await res.json())['orders'];
-        var orderListElement = window.document.querySelector('#order-list');
+{%endblock%}
 
-        for (var i = 0, len = orders.length; i < len; i++) {
-          var newLi = document.createElement('li');
-          console.log(orders[i]['line_items'])
-          newLi.textContent = orders[i]['line_items'][0]['price']
-          orderListElement.appendChild(newLi);
-        }
-      });
-    }
-  </script>
-  {%endblock%}
+{%block title%}Import View{%endblock title%}
 
-  {%block title%}インポート{%endblock title%}
+<a href="/api_view/?shop={{ shop_origin }}">API VIEW</a>
 
-  {%block content%}
-  <form class="" action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-      {{ form.non_field_errors }}
-      {% for field in form %}
-          <div class="Polaris-Label">
+{%block content%}
+<h2 class="display-3 mb-2">CSVファイル列名の設定</h2>
+
+{{ form.non_field_errors }}
+<div class="row no-gutters">
+  <div class="col-md-4">
+    <p>
+      対応するCSVファイルの列名を入力してください。<br>
+      取り込みが必要な値のみ、チェックボックスを有効にしてください。
+    </p>
+  </div>
+  <div class="col-md-8">
+    <div class="card mb-1">
+      <form class="" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+
+        <div class="card-body">
+
+          <div class="form-group">
             <label class="Polaris-Label__Text" for="{{ field.id_for_label }}">{{ field.label }}:</label>
-          </div>
-          {% if "id_file" == field.id_for_label %}
-          <div class="Polaris-FileField">
             {{ field }}
+            {% if field.help_text %}
+            <span class="helptext mt-1 d-block">{{ field.help_text }}</span>
+            {% endif %}
+            {{ field.errors }}
           </div>
-          {% else %}
-          <div class="Polaris-TextField">
-            {{ field }}
-          </div>
-          {% endif %}
-          {% if field.help_text %}
-              <span class="helptext">{{ field.help_text }}</span>
-          {% endif %}
-          {{ field.errors }}
+        </div>
+        <hr>
+        {% endfor %}
+        <div class="card-body">
+          <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-      {% endfor %}
-    <button class="Polaris-Button__Content" type="submit" name="submit">Submit</button>
-  </form>
 
-  <button onclick="getProducts()">Products</button>
-  <ul id="product-list"></ul>
-  <button onclick="getOrders()">Orders</button>
-  <ul id="order-list"></ul>
-
-  {%endblock%}
+{%endblock%}

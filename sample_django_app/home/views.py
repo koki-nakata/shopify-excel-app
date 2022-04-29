@@ -20,4 +20,19 @@ class HomeView(View):
             "scope_changes_required": kwargs.get("scope_changes_required"),
             "form": form,
         }
+        print(":b-1:",context)
         return render(request, "home/index.html", context)
+
+class ApiView(View):
+    print("b-2")
+    @xframe_options_exempt
+    @known_shop_required
+    @latest_access_scopes_required
+    def get(self, request, *args, **kwargs):
+        context = {
+            "shop_origin": kwargs.get("shopify_domain"),
+            "api_key": apps.get_app_config("shopify_app").SHOPIFY_API_KEY,
+            "scope_changes_required": kwargs.get("scope_changes_required"),
+        }
+        print(":b-2:",context)
+        return render(request, "home/api_view.html", context)

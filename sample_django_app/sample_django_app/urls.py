@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import include, path
 
 from shopify_app.views import  callback, LoginView, uninstall
-from home.views import HomeView
+from home.views import HomeView, ApiView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='root_path'),
+    path('api_view/', ApiView.as_view(), name='api_view'),
     path('api/', include('api.urls')),
     path('login/', LoginView.as_view(), name='login'),
     path('auth/shopify/callback', callback, name='callback'),

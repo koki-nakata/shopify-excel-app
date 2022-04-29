@@ -42,6 +42,7 @@ def authorization_header(request):
 def known_shop_required(func):
     def wrapper(*args, **kwargs):
         request = args[1]
+        print("known_shop_required::"," request:",request," arg:",args[1])
         try:
             check_shop_domain(request, kwargs)
             check_shop_known(request, kwargs)
