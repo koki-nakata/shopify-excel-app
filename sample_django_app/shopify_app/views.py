@@ -104,7 +104,7 @@ def get_configured_scopes():
 
 def build_redirect_uri():
     print("a-11")
-    app_url = "https://50ef-210-136-188-236.ngrok.io"
+    app_url = "https://698d-210-136-188-236.eu.ngrok.io"
     callback_path = reverse("callback")
     return "{app_url}{callback_path}".format(
         app_url=app_url, callback_path=callback_path
